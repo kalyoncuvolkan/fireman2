@@ -126,6 +126,23 @@ class VehicleUpdate(BaseModel):
     assigned_driver_id: Optional[str] = None
     notes: Optional[str] = None
 
+class Service(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    address: str
+    phone: str
+    email: Optional[str] = None
+    specialization: Optional[str] = None  # Motor, Elektrik, Kaporta, Genel
+    created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+
+class ServiceCreate(BaseModel):
+    name: str
+    address: str
+    phone: str
+    email: Optional[str] = None
+    specialization: Optional[str] = None
+
 class Fault(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -134,6 +151,7 @@ class Fault(BaseModel):
     description: str
     status: FaultStatus = FaultStatus.PENDING
     priority: str = "normal"  # low, normal, high, urgent
+    service_id: Optional[str] = None
     resolution_notes: Optional[str] = None
     resolved_at: Optional[str] = None
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
