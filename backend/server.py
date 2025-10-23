@@ -160,11 +160,13 @@ class FaultCreate(BaseModel):
     vehicle_id: str
     description: str
     priority: str = "normal"
+    service_id: Optional[str] = None
 
 class FaultUpdate(BaseModel):
     status: Optional[FaultStatus] = None
     resolution_notes: Optional[str] = None
     priority: Optional[str] = None
+    service_id: Optional[str] = None
 
 class Assignment(BaseModel):
     model_config = ConfigDict(extra="ignore")
