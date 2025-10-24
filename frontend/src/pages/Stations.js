@@ -18,7 +18,10 @@ const Stations = ({ user, onLogout }) => {
   const [newStation, setNewStation] = useState({
     name: '',
     address: '',
-    phone: ''
+    phone: '',
+    internal_number: '',
+    latitude: '',
+    longitude: ''
   });
 
   useEffect(() => {
