@@ -48,7 +48,7 @@ const Stations = ({ user, onLogout }) => {
       await axios.post(`${API}/stations`, newStation);
       toast.success('İstasyon başarıyla eklendi');
       setShowAddDialog(false);
-      setNewStation({ name: '', address: '', phone: '' });
+      setNewStation({ name: '', address: '', phone: '', internal_number: '', latitude: '', longitude: '' });
       fetchData();
     } catch (error) {
       toast.error('İstasyon eklenemedi');
