@@ -503,6 +503,77 @@ const VehicleDetail = ({ user, onLogout }) => {
             )}
           </CardContent>
         </Card>
+
+        {/* Kaza Kayıt Dialog */}
+        {showAccidentDialog && (
+          <Dialog open={showAccidentDialog} onOpenChange={setShowAccidentDialog}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Kaza Kaydı Ekle</DialogTitle>
+              </DialogHeader>
+              <form onSubmit={handleAddAccident} className="space-y-4">
+                <div>
+                  <Label htmlFor="accident_date">Kaza Tarihi</Label>
+                  <Input
+                    id="accident_date"
+                    type="date"
+                    value={accidentData.date}
+                    onChange={(e) => setAccidentData({ ...accidentData, date: e.target.value })}
+                    required
+                    data-testid="accident-date-input"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="accident_location">Kaza Yeri</Label>
+                  <Input
+                    id="accident_location"
+                    value={accidentData.location}
+                    onChange={(e) => setAccidentData({ ...accidentData, location: e.target.value })}
+                    required
+                    placeholder="örn: Kızılay Kavşağı"
+                    data-testid="accident-location-input"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="accident_driver">Sürücü</Label>
+                  <select
+                    id="accident_driver"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    value={accidentData.driver_id}
+                    onChange={(e) => setAccidentData({ ...accidentData, driver_id: e.target.value })}
+                    required
+                    data-testid="accident-driver-select"
+                  >
+                    <option value="">Sürücü Seçin</option>
+                    {users.map(driver => (
+                      <option key={driver.id} value={driver.id}>{driver.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <Label htmlFor="accident_description">Kaza Açıklaması</Label>
+                  <Textarea
+                    id="accident_description"
+                    rows={4}
+                    value={accidentData.description}
+                    onChange={(e) => setAccidentData({ ...accidentData, description: e.target.value })}
+                    required
+                    placeholder="Kaza detaylarını açıklayın..."
+                    data-testid="accident-description-input"
+                  />
+                </div>
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                  <p className="text-sm text-yellow-800">
+                    ⚠️ Bu işlem araç durumunu "Kazalı" olarak güncelleyecektir.
+                  </p>
+                </div>
+                <Button type="submit" className="w-full bg-gradient-to-r from-red-600 to-red-700" data-testid="submit-accident-button">
+                  Kaza Kaydını Ekle
+                </Button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        )}
       </div>
     </Layout>
   );
