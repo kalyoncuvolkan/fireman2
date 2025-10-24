@@ -48,6 +48,8 @@ class VehicleType(str, Enum):
     LADDER = "ladder"  # Merdiven
     TANKER = "tanker"  # Tanker
     SNORKEL = "snorkel"  # Şnorkel
+    ROTFIRE = "rotfire"  # Rotfire
+    FOAM_TOWER = "foam_tower"  # Köpük Kulesi
     TERRAIN = "terrain"  # Arazöz
     RESCUE = "rescue"  # Kurtarma
     SERVICE = "service"  # Hizmet
