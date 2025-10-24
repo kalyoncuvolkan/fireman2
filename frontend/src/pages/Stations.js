@@ -100,15 +100,52 @@ const Stations = ({ user, onLogout }) => {
                       data-testid="station-address-input"
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="phone">Telefon</Label>
-                    <Input
-                      id="phone"
-                      value={newStation.phone}
-                      onChange={(e) => setNewStation({ ...newStation, phone: e.target.value })}
-                      required
-                      data-testid="station-phone-input"
-                    />
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="phone">Telefon</Label>
+                      <Input
+                        id="phone"
+                        value={newStation.phone}
+                        onChange={(e) => setNewStation({ ...newStation, phone: e.target.value })}
+                        required
+                        data-testid="station-phone-input"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="internal_number">Dahili Numara</Label>
+                      <Input
+                        id="internal_number"
+                        value={newStation.internal_number}
+                        onChange={(e) => setNewStation({ ...newStation, internal_number: e.target.value })}
+                        data-testid="station-internal-input"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="latitude">Enlem (Latitude)</Label>
+                      <Input
+                        id="latitude"
+                        type="number"
+                        step="any"
+                        value={newStation.latitude}
+                        onChange={(e) => setNewStation({ ...newStation, latitude: parseFloat(e.target.value) })}
+                        placeholder="örn: 39.9334"
+                        data-testid="station-latitude-input"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="longitude">Boylam (Longitude)</Label>
+                      <Input
+                        id="longitude"
+                        type="number"
+                        step="any"
+                        value={newStation.longitude}
+                        onChange={(e) => setNewStation({ ...newStation, longitude: parseFloat(e.target.value) })}
+                        placeholder="örn: 32.8597"
+                        data-testid="station-longitude-input"
+                      />
+                    </div>
                   </div>
                   <Button type="submit" className="w-full bg-gradient-to-r from-red-600 to-red-700" data-testid="submit-station-button">
                     İstasyon Ekle
