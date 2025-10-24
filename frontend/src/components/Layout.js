@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { API } from '@/App';
 import { Button } from '@/components/ui/button';
-import { Bell, LogOut, Menu, X, Truck, AlertCircle, Building2, MapPin, Users, LayoutDashboard } from 'lucide-react';
+import { Bell, LogOut, Menu, X, Truck, AlertCircle, Building2, MapPin, Users, LayoutDashboard, MessageSquare } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import {
   DropdownMenu,
