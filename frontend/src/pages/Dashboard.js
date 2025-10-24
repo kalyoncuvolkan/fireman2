@@ -82,6 +82,14 @@ const Dashboard = ({ user, onLogout }) => {
       color: 'from-purple-500 to-purple-600',
       bgColor: 'bg-purple-50',
       iconColor: 'text-purple-600'
+    },
+    {
+      title: 'Yağ Bakımı Yaklaşan',
+      value: stats?.oil_change_due_soon || 0,
+      icon: FileWarning,
+      color: 'from-amber-500 to-amber-600',
+      bgColor: 'bg-amber-50',
+      iconColor: 'text-amber-600'
     }
   ];
 
