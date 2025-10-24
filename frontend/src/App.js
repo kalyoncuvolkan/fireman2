@@ -17,6 +17,7 @@ import Services from '@/pages/Services';
 import Requests from '@/pages/Requests';
 import FaultTypes from '@/pages/FaultTypes';
 import Statistics from '@/pages/Statistics';
+import Map from '@/pages/Map';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
