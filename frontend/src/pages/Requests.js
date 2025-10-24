@@ -36,13 +36,7 @@ const Requests = ({ user, onLogout }) => {
       // Get managers list for drivers
       if (user.role === 'driver') {
         try {
-          // Drivers can't access /users endpoint, so we need a different approach
-          // For now, they'll need to know manager IDs or we create a public endpoint
-          // Let's fetch from stations to get manager info
-          const stationsRes = await axios.get(`${API}/stations`);
-          const managerIds = [...new Set(stationsRes.data.map(s => s.manager_id).filter(Boolean))];
-          // We'll show a simple input for now if no managers found
-          setManagers([]);
+          const managersRes = await axios.get(`${API}/managers`);\n          setManagers(managersRes.data);
         } catch (error) {
           console.error('Could not fetch managers');
         }
