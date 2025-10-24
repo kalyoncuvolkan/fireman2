@@ -15,7 +15,10 @@ const Login = ({ onLogin }) => {
     email: '',
     password: '',
     name: '',
-    role: 'driver'
+    role: 'driver',
+    sicil_no: '',
+    phone: '',
+    manager_password: ''
   });
   const [loading, setLoading] = useState(false);
 
