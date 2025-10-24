@@ -473,6 +473,40 @@ const VehicleDetail = ({ user, onLogout }) => {
           </CardContent>
         </Card>
 
+        {vehicle?.accident_records && vehicle.accident_records.length > 0 && (
+          <Card className="border-2 border-red-500">
+            <CardHeader>
+              <CardTitle className="flex items-center text-red-800">
+                <AlertCircle className="w-5 h-5 mr-2" />
+                Kaza Kayıtları ({vehicle.accident_records.length})
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {vehicle.accident_records.map((accident, index) => {
+                  const driver = users.find(u => u.id === accident.driver_id);
+                  return (
+                    <div key={index} className="border-2 border-red-200 rounded-lg p-4 bg-red-50">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <p className="font-semibold text-red-900">{accident.location}</p>
+                          <p className="text-sm text-red-700">{formatDate(accident.date)}</p>
+                        </div>
+                      </div>
+                      {driver && (
+                        <div className="bg-white rounded p-2 mb-2">
+                          <p className="text-sm text-gray-600">Sürücü: <span className="font-medium text-gray-900">{driver.name}</span></p>
+                        </div>
+                      )}
+                      <p className="text-sm text-gray-700">{accident.description}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
