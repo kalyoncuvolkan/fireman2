@@ -134,6 +134,32 @@ const Login = ({ onLogin }) => {
                       data-testid="register-email-input"
                     />
                   </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="register-sicil">Sicil No</Label>
+                      <Input
+                        id="register-sicil"
+                        type="text"
+                        placeholder="12345"
+                        value={registerData.sicil_no}
+                        onChange={(e) => setRegisterData({ ...registerData, sicil_no: e.target.value })}
+                        required
+                        data-testid="register-sicil-input"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="register-phone">Telefon</Label>
+                      <Input
+                        id="register-phone"
+                        type="tel"
+                        placeholder="0532 123 4567"
+                        value={registerData.phone}
+                        onChange={(e) => setRegisterData({ ...registerData, phone: e.target.value })}
+                        required
+                        data-testid="register-phone-input"
+                      />
+                    </div>
+                  </div>
                   <div>
                     <Label htmlFor="register-password">Şifre</Label>
                     <Input
@@ -159,6 +185,21 @@ const Login = ({ onLogin }) => {
                       <option value="manager">Amir</option>
                     </select>
                   </div>
+                  {registerData.role === 'manager' && (
+                    <div>
+                      <Label htmlFor="register-manager-password">Amir Kayıt Şifresi</Label>
+                      <Input
+                        id="register-manager-password"
+                        type="password"
+                        placeholder="Amir kayıt şifresi gerekli"
+                        value={registerData.manager_password}
+                        onChange={(e) => setRegisterData({ ...registerData, manager_password: e.target.value })}
+                        required
+                        data-testid="register-manager-password-input"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">Amir olarak kayıt olmak için özel şifre gereklidir</p>
+                    </div>
+                  )}
                   <Button
                     type="submit"
                     className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800"
