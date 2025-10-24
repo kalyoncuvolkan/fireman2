@@ -8,10 +8,12 @@ import { Truck, AlertTriangle, CheckCircle, XCircle, FileWarning, Building2, Use
 
 const Dashboard = ({ user, onLogout }) => {
   const [stats, setStats] = useState(null);
+  const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchStats();
+    fetchVehicles();
   }, []);
 
   const fetchStats = async () => {
@@ -22,6 +24,25 @@ const Dashboard = ({ user, onLogout }) => {
       toast.error('İstatistikler yüklenemedi');
     }
     setLoading(false);
+  };
+
+  const fetchVehicles = async () => {
+    try {
+      const response = await axios.get(`${API}/vehicles`);
+      setVehicles(response.data);
+    } catch (error) {
+      console.error('Araçlar yüklenemedi');
+    }
+  };
+
+  const getOilChangeDueVehicles = () => {
+    const thirtyDays = new Date();
+    thirtyDays.setDate(thirtyDays.getDate() + 30);
+    return vehicles.filter(v => {
+      if (!v.next_oil_change_date) return false;
+      const dueDate = new Date(v.next_oil_change_date);
+      return dueDate <= thirtyDays;
+    });
   };
 
   if (loading) {
