@@ -36,16 +36,18 @@ const VehicleDetail = ({ user, onLogout }) => {
 
   const fetchData = async () => {
     try {
-      const [vehicleRes, faultsRes, assignmentsRes] = await Promise.all([
+      const [vehicleRes, faultsRes, assignmentsRes, faultTypesRes] = await Promise.all([
         axios.get(`${API}/vehicles/${id}`),
         axios.get(`${API}/faults`, { params: { vehicle_id: id } }),
-        axios.get(`${API}/assignments`, { params: { vehicle_id: id } })
+        axios.get(`${API}/assignments`, { params: { vehicle_id: id } }),
+        axios.get(`${API}/fault-types`)
       ]);
       
       setVehicle(vehicleRes.data);
       setEditData(vehicleRes.data);
       setFaults(faultsRes.data);
       setAssignments(assignmentsRes.data);
+      setFaultTypes(faultTypesRes.data);
       
       if (vehicleRes.data.station_id) {
         const stationRes = await axios.get(`${API}/stations/${vehicleRes.data.station_id}`);
