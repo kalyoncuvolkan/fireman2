@@ -910,6 +910,12 @@ async def get_dashboard_stats(user: dict = Depends(get_current_user)):
         total_drivers=total_drivers
     )
 
+# Get managers (for drivers to send requests)
+@api_router.get("/managers", response_model=List[User])
+async def get_managers(user: dict = Depends(get_current_user)):
+    managers = await db.users.find({"role": "manager"}, {"_id": 0, "password": 0}).to_list(1000)
+    return managers
+
 # Users management (for managers)
 @api_router.get("/users", response_model=List[User])
 async def get_users(user: dict = Depends(require_manager)):
