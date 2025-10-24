@@ -214,31 +214,47 @@ const Dashboard = ({ user, onLogout }) => {
           </Card>
         </div>
 
-        {getOilChangeDueVehicles().length > 0 && (
-          <Card className="border-2 border-red-500 bg-red-50">
+        {/* Muayene Yaklaşan Araçlar */}
+        {vehicles.filter(v => {
+          if (!v.inspection_expiry) return false;
+          const expiryDate = new Date(v.inspection_expiry);
+          const thirtyDays = new Date();
+          thirtyDays.setDate(thirtyDays.getDate() + 30);
+          return expiryDate <= thirtyDays;
+        }).length > 0 && (
+          <Card className="border-2 border-blue-500 bg-blue-50">
             <CardHeader>
-              <CardTitle className="text-red-800 flex items-center space-x-2">
+              <CardTitle className="text-blue-800 flex items-center space-x-2">
                 <AlertTriangle className="w-6 h-6" />
-                <span>YAĞ BAKIMI YAKLAŞAN ARAÇLAR ({getOilChangeDueVehicles().length})</span>
+                <span>MUAYENE YAKLAŞAN ARAÇLAR ({vehicles.filter(v => {
+                  if (!v.inspection_expiry) return false;
+                  const expiryDate = new Date(v.inspection_expiry);
+                  const thirtyDays = new Date();
+                  thirtyDays.setDate(thirtyDays.getDate() + 30);
+                  return expiryDate <= thirtyDays;
+                }).length})</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {getOilChangeDueVehicles().map(vehicle => (
-                  <div key={vehicle.id} className="bg-white border-2 border-red-300 rounded-lg p-4">
+                {vehicles.filter(v => {
+                  if (!v.inspection_expiry) return false;
+                  const expiryDate = new Date(v.inspection_expiry);
+                  const thirtyDays = new Date();
+                  thirtyDays.setDate(thirtyDays.getDate() + 30);
+                  return expiryDate <= thirtyDays;
+                }).map(vehicle => (
+                  <div key={vehicle.id} className="bg-white border-2 border-blue-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="font-bold text-gray-900">{vehicle.plate}</h3>
-                      <Truck className="w-5 h-5 text-red-600" />
+                      <Truck className="w-5 h-5 text-blue-600" />
                     </div>
                     <p className="text-sm text-gray-600 mb-2">{vehicle.brand} {vehicle.model}</p>
-                    <div className="bg-red-100 rounded p-2">
-                      <p className="text-xs text-red-800 font-medium">Sonraki Bakım:</p>
-                      <p className="text-sm font-bold text-red-900">
-                        {new Date(vehicle.next_oil_change_date).toLocaleDateString('tr-TR')}
+                    <div className="bg-blue-100 rounded p-2">
+                      <p className="text-xs text-blue-800 font-medium">Muayene Bitiş:</p>
+                      <p className="text-sm font-bold text-blue-900">
+                        {new Date(vehicle.inspection_expiry).toLocaleDateString('tr-TR')}
                       </p>
-                      {vehicle.next_oil_change_km && (
-                        <p className="text-xs text-red-700">veya {vehicle.next_oil_change_km.toLocaleString()} KM</p>
-                      )}
                     </div>
                   </div>
                 ))}
