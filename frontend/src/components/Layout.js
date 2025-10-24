@@ -88,14 +88,14 @@ const Layout = ({ children, user, onLogout }) => {
               </Link>
             </div>
 
-            <nav className="hidden md:flex items-center space-x-1">
+            <nav className="hidden md:flex items-center space-x-1 overflow-x-auto">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 return (
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors whitespace-nowrap ${
                       isActive(item.path)
                         ? 'bg-red-50 text-red-700 font-medium'
                         : 'text-gray-600 hover:bg-gray-100'
@@ -103,7 +103,7 @@ const Layout = ({ children, user, onLogout }) => {
                     data-testid={`nav-${item.label}`}
                   >
                     <Icon className="w-4 h-4" />
-                    <span>{item.label}</span>
+                    <span className="text-sm">{item.label}</span>
                   </Link>
                 );
               })}
