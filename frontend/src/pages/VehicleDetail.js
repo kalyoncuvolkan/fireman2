@@ -93,6 +93,14 @@ const VehicleDetail = ({ user, onLogout }) => {
 
   const handleUpdateVehicle = async (e) => {
     e.preventDefault();
+    
+    // If status changed to accident, show accident dialog
+    if (editData.status === 'accident' && vehicle.status !== 'accident') {
+      setShowEditDialog(false);
+      setShowAccidentDialog(true);
+      return;
+    }
+    
     try {
       await axios.put(`${API}/vehicles/${id}`, editData);
       toast.success('Araç bilgileri güncellendi');
@@ -100,6 +108,29 @@ const VehicleDetail = ({ user, onLogout }) => {
       fetchData();
     } catch (error) {
       toast.error('Güncelleme başarısız');
+    }
+  };
+
+  const handleAddAccident = async (e) => {
+    e.preventDefault();
+    try {
+      // First add accident record
+      await axios.post(`${API}/vehicles/${id}/accident`, accidentData);
+      
+      // Then update vehicle status
+      await axios.put(`${API}/vehicles/${id}`, { status: 'accident' });
+      
+      toast.success('Kaza kaydı eklendi');
+      setShowAccidentDialog(false);
+      setAccidentData({
+        date: new Date().toISOString().split('T')[0],
+        location: '',
+        driver_id: '',
+        description: ''
+      });
+      fetchData();
+    } catch (error) {
+      toast.error('Kaza kaydı eklenemedi');
     }
   };
 
