@@ -112,6 +112,14 @@ function App() {
             path="/requests"
             element={user ? <Requests user={user} onLogout={handleLogout} /> : <Navigate to="/login" />}
           />
+          <Route
+            path="/fault-types"
+            element={user?.role === 'manager' ? <FaultTypes user={user} onLogout={handleLogout} /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/statistics"
+            element={user?.role === 'manager' ? <Statistics user={user} onLogout={handleLogout} /> : <Navigate to="/" />}
+          />
         </Routes>
       </BrowserRouter>
       <Toaster position="top-right" />
