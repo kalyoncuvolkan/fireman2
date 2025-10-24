@@ -22,12 +22,20 @@ const VehicleDetail = ({ user, onLogout }) => {
   const [loading, setLoading] = useState(true);
   const [showFaultDialog, setShowFaultDialog] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
+  const [showAccidentDialog, setShowAccidentDialog] = useState(false);
   const [editData, setEditData] = useState({});
   const [faultTypes, setFaultTypes] = useState([]);
+  const [users, setUsers] = useState([]);
   const [newFault, setNewFault] = useState({
     description: '',
     priority: 'normal',
     fault_type_id: ''
+  });
+  const [accidentData, setAccidentData] = useState({
+    date: new Date().toISOString().split('T')[0],
+    location: '',
+    driver_id: '',
+    description: ''
   });
 
   useEffect(() => {
