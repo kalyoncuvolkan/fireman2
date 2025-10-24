@@ -502,6 +502,33 @@ async def mark_notification_read(notification_id: str, user: dict = Depends(get_
         raise HTTPException(status_code=404, detail="Bildirim bulunamadı")
     return {"message": "Bildirim okundu olarak işaretlendi"}
 
+# Services
+@api_router.post("/services", response_model=Service)
+async def create_service(service: ServiceCreate, user: dict = Depends(require_manager)):
+    service_obj = Service(**service.model_dump())
+    doc = service_obj.model_dump()
+    await db.services.insert_one(doc)
+    return service_obj
+
+@api_router.get("/services", response_model=List[Service])
+async def get_services(user: dict = Depends(get_current_user)):
+    services = await db.services.find({}, {"_id": 0}).to_list(1000)
+    return services
+
+@api_router.get("/services/{service_id}", response_model=Service)
+async def get_service(service_id: str, user: dict = Depends(get_current_user)):
+    service = await db.services.find_one({"id": service_id}, {"_id": 0})
+    if not service:
+        raise HTTPException(status_code=404, detail="Servis bulunamadı")
+    return service
+
+@api_router.delete("/services/{service_id}")
+async def delete_service(service_id: str, user: dict = Depends(require_manager)):
+    result = await db.services.delete_one({"id": service_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Servis bulunamadı")
+    return {"message": "Servis silindi"}
+
 # Dashboard
 @api_router.get("/dashboard/stats", response_model=DashboardStats)
 async def get_dashboard_stats(user: dict = Depends(get_current_user)):
