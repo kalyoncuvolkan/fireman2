@@ -54,7 +54,11 @@ const Layout = ({ children, user, onLogout }) => {
   ];
 
   if (user.role === 'manager') {
-    navItems.push({ path: '/users', label: 'Kullanıcılar', icon: Users });
+    navItems.push(
+      { path: '/fault-types', label: 'Arıza Tipleri', icon: AlertCircle },
+      { path: '/statistics', label: 'İstatistikler', icon: TrendingUp },
+      { path: '/users', label: 'Kullanıcılar', icon: Users }
+    );
   }
 
   const isActive = (path) => {
