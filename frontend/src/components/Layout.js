@@ -49,6 +49,8 @@ const Layout = ({ children, user, onLogout }) => {
     { path: '/faults', label: 'Arızalar', icon: AlertCircle },
     { path: '/stations', label: 'İstasyonlar', icon: Building2 },
     { path: '/assignments', label: 'Görevler', icon: MapPin },
+    { path: '/services', label: 'Servisler', icon: Building2 },
+    { path: '/requests', label: 'Talepler', icon: MessageSquare },
   ];
 
   if (user.role === 'manager') {
