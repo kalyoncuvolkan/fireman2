@@ -173,6 +173,21 @@ const VehicleDetail = ({ user, onLogout }) => {
                 </DialogHeader>
                 <form onSubmit={handleReportFault} className="space-y-4">
                   <div>
+                    <Label htmlFor="fault_type">Arıza Tipi</Label>
+                    <select
+                      id="fault_type"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      value={newFault.fault_type_id}
+                      onChange={(e) => setNewFault({ ...newFault, fault_type_id: e.target.value })}
+                      data-testid="fault-type-select"
+                    >
+                      <option value="">Arıza Tipi Seçin</option>
+                      {faultTypes.map(ft => (
+                        <option key={ft.id} value={ft.id}>{ft.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
                     <Label htmlFor="description">Arıza Açıklaması</Label>
                     <Textarea
                       id="description"
