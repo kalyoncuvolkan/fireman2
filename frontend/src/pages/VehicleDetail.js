@@ -44,21 +44,28 @@ const VehicleDetail = ({ user, onLogout }) => {
 
   const fetchData = async () => {
     try {
-      const [vehicleRes, faultsRes, assignmentsRes, faultTypesRes] = await Promise.all([
+      const requests = [
         axios.get(`${API}/vehicles/${id}`),
         axios.get(`${API}/faults`, { params: { vehicle_id: id } }),
         axios.get(`${API}/assignments`, { params: { vehicle_id: id } }),
         axios.get(`${API}/fault-types`)
-      ]);
+      ];
+
+      if (user.role === 'manager') {
+        requests.push(axios.get(`${API}/users`));
+      }
+
+      const responses = await Promise.all(requests);
       
-      setVehicle(vehicleRes.data);
-      setEditData(vehicleRes.data);
-      setFaults(faultsRes.data);
-      setAssignments(assignmentsRes.data);
-      setFaultTypes(faultTypesRes.data);
+      setVehicle(responses[0].data);
+      setEditData(responses[0].data);
+      setFaults(responses[1].data);
+      setAssignments(responses[2].data);
+      setFaultTypes(responses[3].data);
+      if (responses[4]) setUsers(responses[4].data.filter(u => u.role === 'driver'));
       
-      if (vehicleRes.data.station_id) {
-        const stationRes = await axios.get(`${API}/stations/${vehicleRes.data.station_id}`);
+      if (responses[0].data.station_id) {
+        const stationRes = await axios.get(`${API}/stations/${responses[0].data.station_id}`);
         setStation(stationRes.data);
       }
     } catch (error) {
