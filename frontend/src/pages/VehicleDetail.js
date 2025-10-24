@@ -23,9 +23,11 @@ const VehicleDetail = ({ user, onLogout }) => {
   const [showFaultDialog, setShowFaultDialog] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [editData, setEditData] = useState({});
+  const [faultTypes, setFaultTypes] = useState([]);
   const [newFault, setNewFault] = useState({
     description: '',
-    priority: 'normal'
+    priority: 'normal',
+    fault_type_id: ''
   });
 
   useEffect(() => {
