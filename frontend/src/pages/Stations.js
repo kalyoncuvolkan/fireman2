@@ -15,7 +15,17 @@ const Stations = ({ user, onLogout }) => {
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAddDialog, setShowAddDialog] = useState(false);
+  const [showEditDialog, setShowEditDialog] = useState(false);
+  const [selectedStation, setSelectedStation] = useState(null);
   const [newStation, setNewStation] = useState({
+    name: '',
+    address: '',
+    phone: '',
+    internal_number: '',
+    latitude: '',
+    longitude: ''
+  });
+  const [editStation, setEditStation] = useState({
     name: '',
     address: '',
     phone: '',
