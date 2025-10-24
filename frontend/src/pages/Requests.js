@@ -36,7 +36,8 @@ const Requests = ({ user, onLogout }) => {
       // Get managers list for drivers
       if (user.role === 'driver') {
         try {
-          const managersRes = await axios.get(`${API}/managers`);\n          setManagers(managersRes.data);
+          const managersRes = await axios.get(`${API}/managers`);
+          setManagers(managersRes.data);
         } catch (error) {
           console.error('Could not fetch managers');
         }
