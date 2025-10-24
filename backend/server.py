@@ -716,6 +716,31 @@ async def get_top_fault_groups(user: dict = Depends(require_manager)):
     
     return top_groups
 
+@api_router.get("/faults/statistics/top-stations")
+async def get_top_fault_stations(user: dict = Depends(require_manager)):
+    """Get stations with most faults"""
+    faults = await db.faults.find({}, {"_id": 0}).to_list(10000)
+    
+    station_counts = {}
+    for fault in faults:
+        vehicle = await db.vehicles.find_one({"id": fault['vehicle_id']}, {"_id": 0})
+        if vehicle:
+            station_id = vehicle.get('station_id')
+            if station_id:
+                station_counts[station_id] = station_counts.get(station_id, 0) + 1
+    
+    # Get station details
+    top_stations = []
+    for station_id, count in sorted(station_counts.items(), key=lambda x: x[1], reverse=True):
+        station = await db.stations.find_one({"id": station_id}, {"_id": 0})
+        if station:
+            top_stations.append({
+                "station_name": station['name'],
+                "count": count
+            })
+    
+    return top_stations
+
 # Fault Report Config
 @api_router.get("/fault-report-config")
 async def get_fault_report_config(user: dict = Depends(require_manager)):
