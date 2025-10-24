@@ -48,6 +48,7 @@ const Layout = ({ children, user, onLogout }) => {
     { path: '/vehicles', label: 'Araçlar', icon: Truck },
     { path: '/faults', label: 'Arızalar', icon: AlertCircle },
     { path: '/stations', label: 'İstasyonlar', icon: Building2 },
+    { path: '/map', label: 'Harita', icon: MapPin },
     { path: '/assignments', label: 'Görevler', icon: MapPin },
     { path: '/services', label: 'Servisler', icon: Building2 },
     { path: '/requests', label: 'Talepler', icon: MessageSquare },
