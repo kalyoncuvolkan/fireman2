@@ -69,7 +69,7 @@ const VehicleDetail = ({ user, onLogout }) => {
       });
       toast.success('Arıza başarıyla bildirildi');
       setShowFaultDialog(false);
-      setNewFault({ description: '', priority: 'normal' });
+      setNewFault({ description: '', priority: 'normal', fault_type_id: '' });
       fetchData();
     } catch (error) {
       toast.error('Arıza bildirilemedi');
